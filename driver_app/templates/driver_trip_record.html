@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Report</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #007bff;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1rem;
+        }
+
+        table, th, td {
+            border: 1px solid #dee2e6;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #ffffff;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:hover {
+            background-color: #e9ecef;
+        }
+
+        td a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        td a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>{{ plate_number }} Trip Report</h1>
+        <button onclick="window.location.href='/trip_update/'">Back</button>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date Loaded</th>
+                    <th>ATC Order Number</th>
+                    <th>Dispatch</th>
+                    <th>Driver Name</th>
+                    <th>Bonus</th>
+                    <th>Diesel Litres</th>
+                    <th>Diesel Amount</th>
+                    <th>Diesel Collection Date</th>
+                    <th>Customer Name</th>
+                    <th>Trip Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trip in driver_trips %}
+                <tr>
+                    <td><a href="/trip_update/{{ plate_number }}/{{ trip.id }}">{{ trip.date }}</a></td>
+                    <td>{{ trip.atc_order_number }}</td>
+                    <td>{{ trip.dispatch }}</td>
+                    <td>{{ trip.driver_name }}</td>
+                    <td>{{ trip.bonus }}</td>
+                    <td>{{ trip.diesel_litres }}</td>
+                    <td>{{ trip.diesel_amount }}</td>
+                    <td>{{ trip.diesel_date }}</td>
+                    <td>{{ trip.customer_name }}</td>
+                    <td>{{ trip.amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

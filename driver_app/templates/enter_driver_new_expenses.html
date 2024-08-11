@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Expenses</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f8fc;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input[type="submit"], button {
+            width: 48%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-sizing: border-box;
+            margin: 5px 1%;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+
+    <form action="/submit_expenses" method="post">
+        <h2>Enter Expenses for {{ plate_number }}</h2>
+        <input type="date" name="date" placeholder="Date">
+        <input type="text" name="description" placeholder="Description">
+        <input type="number" name="driver_id" placeholder="Driver ID" required value="{{ driver_id }}">
+        <input type="text" name="driver_name" placeholder="Driver Name" required value="{{ first_name }}">
+        <input type="number" name="amount" placeholder="Amount">
+        <div class="button-container">
+            <input type="submit" value="Submit">
+            <button type="button" onclick="window.location.href='/expense-fleet-record/'">Back</button>
+        </div>
+    </form>
+
+</body>
+</html>

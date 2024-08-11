@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General Trips Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin: 20px auto;
+            max-width: 1000px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border: 1px solid #ddd;
+        }
+        h1 {
+            font-size: 30px;
+            color: #4a90e2;
+            border-bottom: 2px solid #e1e8ed;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e1e8ed;
+        }
+        th {
+            background-color: #f9f9f9;
+            color: #555;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f1f5f9;
+        }
+        tr:hover {
+            background-color: #e1e8ed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>General Trip Report</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date Loaded</th>
+                    <th>ATC Order Number</th>
+                    <th>Dispatch</th>
+                    <th>Bonus</th>
+                    <th>Driver Name</th>
+                    <th>Diesel Litres</th>
+                    <th>Diesel Amount</th>
+                    <th>Diesel Collection Date</th>
+                    <th>Customer Name</th>
+                    <th>Trip Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trip in general_trips %}
+                <tr>
+                    <td>{{ trip.date }}</td>
+                    <td>{{ trip.atc_order_number }}</td>
+                    <td>{{ trip.dispatch }}</td>
+                    <td>{{ trip.bonus }}</td>
+                    <td>{{ trip.driver_name }}</td>
+                    <td>{{ trip.diesel_litres }}</td>
+                    <td>{{ trip.diesel_amount }}</td>
+                    <td>{{ trip.diesel_date }}</td>
+                    <td>{{ trip.customer_name }}</td>
+                    <td>{{ trip.amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

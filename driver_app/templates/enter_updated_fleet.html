@@ -1,0 +1,98 @@
+<!-- templates/update_item.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update {{ plate_number }}</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"],
+        button {
+            width: 48%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-sizing: border-box;
+            margin: 5px 1%;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        button {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+        button:hover {
+            background-color: #495057;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <form action="/updated/{{ driver_id }}/{{ plate_number }}/" method="post">
+        <h1>Update {{ plate_number }}</h1>
+        <input type="text" id="first_name" name="first_name" placeholder="First Name">
+        <input type="text" id="last_name" name="last_name" placeholder="Last Name">
+        <input type="text" id="phone_number" name="phone_number" placeholder="Phone Number">
+        <div class="button-container">
+            <input type="submit" value="Update">
+            <button type="button" onclick="window.location.href='/fleet_update/'">Back</button>
+        </div>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f8fc;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            color: #007bff;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        form label {
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        form input[type="date"] {
+            padding: 6px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 1rem;
+        }
+
+        th, td {
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #ffffff;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tbody tr:hover {
+            background-color: #e9ecef;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>{{ report_plate_number }} Trip Report</h1>
+        <div style="margin-bottom: 20px;">
+            <button onclick="window.location.href='/trip-report/'">Back</button>
+            <button onclick="window.location.href='/trip-report/{{plate_number}}/{{driver_id}}/excel/'">Export to Excel</button>
+        </div>
+        <form action="/trip-report/{{plate_number}}/{{driver_id}}/pdf/" method="get">
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" required>
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" required>
+            <button type="submit">Download PDF</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date Loaded</th>
+                    <th>ATC Order Number</th>
+                    <th>Dispatch</th>
+                    <th>Bonus</th>
+                    <th>Driver Name</th>
+                    <th>Diesel Litres</th>
+                    <th>Diesel Amount</th>
+                    <th>Diesel Collection Date</th>
+                    <th>Customer Name</th>
+                    <th>Trip Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trip in driver_trips %}
+                <tr>
+                    <td>{{ trip.date }}</td>
+                    <td>{{ trip.atc_order_number }}</td>
+                    <td>{{ trip.dispatch }}</td>
+                    <td>{{ trip.bonus }}</td>
+                    <td>{{ trip.driver_name }}</td>
+                    <td>{{ trip.diesel_litres }}</td>
+                    <td>{{ trip.diesel_amount }}</td>
+                    <td>{{ trip.diesel_date }}</td>
+                    <td>{{ trip.customer_name }}</td>
+                    <td>{{ trip.amount }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

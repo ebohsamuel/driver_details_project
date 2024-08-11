@@ -1,0 +1,94 @@
+<!-- templates/update_item.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update {{ plate_number }} Trip</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f8fc;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        input[type="text"],
+        input[type="date"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input[type="submit"], button {
+            width: 48%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-sizing: border-box;
+            margin: 5px 1%;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <form action="/trip_updated/{{ trip_id }}/{{ plate_number }}/" method="post">
+        <h1>Update Trip for {{ plate_number }}</h1>
+        <input type="date" id="date" name="date" placeholder="Date Loaded">
+        <input type="text" id="atc_order_number" name="atc_order_number" placeholder="ATC Order Number">
+        <input type="number" name="dispatch" placeholder="Driver Dispatch">
+        <input type="text" name="driver_name" placeholder="Driver Name">
+        <input type="number" name="bonus" placeholder="Driver Bonus">
+        <input type="number" name="diesel_litres" placeholder="Diesel Litres" step="0.01">
+        <input type="number" name="diesel_amount" placeholder="Diesel Cost">
+        <input type="date" name="diesel_date" placeholder="Diesel Collection Date">
+        <input type="text" name="customer_name" placeholder="Customer Name">
+        <input type="number" name="amount" placeholder="Trip Amount" step="0.01">
+        <div class="button-container">
+            <input type="submit" value="Update">
+            <button type="button" onclick="window.location.href='/trip_update/'">Back</button>
+        </div>
+    </form>
+</body>
+</html>

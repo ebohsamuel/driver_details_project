@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f7f8fc;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        form {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 24px;
+            font-size: 24px;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        input[type="submit"], button {
+            width: 32%;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px 1%;
+            transition: background-color 0.3s ease;
+        }
+        input[type="submit"] {
+            background-color: #28a745;
+            color: #ffffff;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        button {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        @media (max-width: 480px) {
+            form {
+                padding: 20px;
+            }
+            input[type="submit"], button {
+                width: 48%;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <form action="/submit_user_details" method="post">
+        <h2>User Registration</h2>
+        <input type="text" id="email" name="email" placeholder="Email" required>
+        <input type="text" id="password" name="password" placeholder="Password" required>
+        <select id="user_type" name="user_type" required>
+            <option value="" disabled selected>Select User Type</option>
+            <option value="super">super</option>
+            <option value="alpha">alpha</option>
+            <option value="beta">beta</option>
+            <option value="gama">gama</option>
+        </select>
+        <div class="button-container">
+            <input type="submit" value="Register">
+            <button type="button" onclick="window.location.href='/welcome/'">Back</button>
+            <button type="button" onclick="window.location.href='/logout'">Logout</button>
+        </div>
+    </form>
+
+</body>
+</html>
