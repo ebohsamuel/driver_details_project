@@ -24,7 +24,8 @@ async def create_new_user_form(
                     "request": request,
                 }
             )
-
+        else:
+            return templates.TemplateResponse("denied.html", {"request": request})
 
 # endpoint for submitting a newly registered user
 @router.post("/submit_user_details", response_class=HTMLResponse)
@@ -49,7 +50,8 @@ async def create_driver_details(
                 "user_registration_successful.html",
                 {"request": request, "db_user": db_user}
             )
-
+        else:
+            return templates.TemplateResponse("denied.html", {"request": request})
 
 # this endpoint is used to get user list for updating user
 @router.get("/user_update/user_list", response_class=HTMLResponse)
