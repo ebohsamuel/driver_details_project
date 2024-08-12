@@ -1,3 +1,4 @@
+HEAD
 alembic==1.13.2
 annotated-types==0.7.0
 anyio==4.4.0
@@ -34,3 +35,5 @@ tzdata==2024.1
 uvicorn==0.30.5
 watchfiles==0.23.0
 websockets==12.0
+
+dce93945a744b6f02c38d44f6ddcd6b93352d364

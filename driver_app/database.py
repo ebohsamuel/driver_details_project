@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 
 
 # "postgresql://postgres:PG/eng1102493@localhost:5432/TransportApplication" for local server
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = "postgresql://postgres:PG/eng1102493@localhost:5432/TransportApplication"
 
 engine = create_engine(DATABASE_URL)
 
