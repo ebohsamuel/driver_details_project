@@ -92,7 +92,7 @@ async def submit_updated_user_details(
         user: Annotated[schemas.User, Depends(get_current_active_user)],
         request: Request,
         user_id: int,
-        is_active: bool = Form(),
+        is_active: str = Form(default=None),
         user_type: str | None = Form(default=None),
         password: str | None = Form(default=None),
         email: str | None = Form(default=None),

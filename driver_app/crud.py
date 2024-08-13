@@ -128,7 +128,10 @@ def get_users(db: Session):
 def update_users(db: Session, user_details: dict, user_id: int):
     db_user = get_user_by_id(db, user_id)
     if user_details["is_active"]:
-        db_user.is_active = user_details["is_active"]
+        if user_details.get("is_active") == "True":
+            db_user.is_active = True
+        elif user_details.get("is_active") == "False":
+            db_user.is_active = False
     if user_details["user_type"]:
         db_user.user_type = user_details["user_type"]
     if user_details["email"]:

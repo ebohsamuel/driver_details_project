@@ -112,12 +112,12 @@
             </select>
         </div>
         <div class="form-group">
-            <input type="hidden" name="is_active" value="false">
-            <label for="is_active">
-                <input type="checkbox" id="is_active" name="is_active">
-                Active
-            </label>
-        </div>
+        <select id="is_active" name="is_active">
+            <option value="" disabled selected>is_active</option>
+            <option value="True">True</option>
+            <option value="False">False</option>
+        </select>
+    </div>
         <div class="button-container">
             <input type="submit" value="Submit">
             <button type="button" onclick="window.location.href='/welcome/'">Back</button>
