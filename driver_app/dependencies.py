@@ -1,8 +1,9 @@
 from typing import Annotated
 from sqlalchemy.orm import Session
-from fastapi import APIRouter, Form, Depends, status, Request
+from fastapi import APIRouter, Form, Depends, status, Request, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi import Response
+from sqlalchemy.exc import IntegrityError
 from fastapi.templating import Jinja2Templates
 import datetime
 import pdfkit
@@ -49,11 +50,29 @@ async def create_driver_details(
     driver = schemas.DriverCreate(**driver_details)
     if user:
         if user.user_type == "super" or user.user_type == "beta":
-            db_user = crud.create_driver(db, driver=driver)
-            return templates.TemplateResponse(
-                "driver_registration_successful.html",
-                {"request": request, "db_user": db_user}
-            )
+            try:
+                db_user = crud.create_driver(db, driver=driver)
+                return templates.TemplateResponse(
+                    "driver_registration_successful.html",
+                    {"request": request, "db_user": db_user}
+                )
+            except IntegrityError:
+                db.rollback()
+                # Render an HTML template for the error instead of raising an HTTPException
+                return templates.TemplateResponse(
+                    "error.html",
+                    {"request": request, "status_code": 400,
+                     "detail": "Registration failed: Plate number already exists."},
+                    status_code=400
+                )
+            except Exception as e:
+                db.rollback()
+                return templates.TemplateResponse(
+                    "error.html",
+                    {"request": request, "status_code": 500,
+                     "detail": "Internal Server Error. Plate number already exists."},
+                    status_code=500
+                )
         else:
             return templates.TemplateResponse("denied.html", {"request": request})
 
