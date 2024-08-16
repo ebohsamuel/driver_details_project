@@ -12,60 +12,94 @@
             margin: 0;
             padding: 0;
             color: #333;
+            line-height: 1.6;
         }
 
         .container {
-            margin: 20px auto;
             max-width: 900px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             border: 1px solid #ddd;
         }
 
         h1 {
-            text-align: center;
-            color: #007bff;
-            margin-bottom: 20px;
             font-size: 28px;
+            color: #4a90e2;
+            text-align: center;
             border-bottom: 3px solid #007bff;
             padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .summary {
+            display: flex;
+            justify-content: flex-end;
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .summary div {
+            margin-left: 20px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        .summary strong {
+            color: #007bff;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
+            font-size: 16px;
+        }
+
+        table thead {
+            background-color: #007bff;
+            color: #ffffff;
         }
 
         table, th, td {
-            border: 1px solid #ddd;
+            border: 1px solid #dee2e6;
         }
 
         th, td {
-            padding: 12px;
+            padding: 15px;
             text-align: left;
         }
 
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        tr:nth-child(even) {
+        tbody tr:nth-child(even) {
             background-color: #f9f9f9;
         }
 
-        tr:hover {
+        tbody tr:hover {
             background-color: #f1f1f1;
+        }
+
+        .no-expenses {
+            text-align: center;
+            color: #888;
+            font-size: 18px;
+            margin: 20px 0;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>Expenses Report</h1>
+        <h1>General Expenses Report</h1>
+        <div class="summary">
+            <div><strong>Total Expenses Amount:</strong> {{ total_amount }}</div>
+        </div>
+        {% if general_expenses %}
         <table>
             <thead>
                 <tr>
@@ -86,6 +120,9 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% else %}
+        <div class="no-expenses">No expenses recorded.</div>
+        {% endif %}
     </div>
 </body>
 
