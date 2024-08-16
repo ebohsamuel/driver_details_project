@@ -35,20 +35,25 @@
         }
 
         .summary {
-            display: flex;
-            justify-content: flex-end;
-            background-color: #e9ecef;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px;
-        }
+        display: flex;
+        justify-content: flex-start; /* Changed from flex-end to flex-start */
+        background-color: #e9ecef;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+    }
 
-        .summary div {
-            margin-left: 20px;
-            font-weight: 600;
-            color: #555;
-        }
+    .summary div {
+        margin-left: 20px;
+        font-weight: 600;
+        color: #555;
+    }
+
+    .summary strong {
+        color: #007bff;
+    }
+
 
         table {
             width: 100%;
