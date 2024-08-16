@@ -15,7 +15,7 @@ def get_driver_by_plate_number(db: Session, plate_number: str):
 
 
 def get_drivers(db: Session):
-    return db.query(models.Driver).all()
+    return db.query(models.Driver).order_by(desc(models.Driver.plate_number)).all()
 
 
 def get_driver_trips(db: Session, driver_id: int):

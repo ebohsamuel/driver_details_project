@@ -39,6 +39,7 @@ async def create_driver_details(
         plate_number: Annotated[str, Form()],
         db: Session = Depends(get_db),
 ):
+    plate_number = plate_number.replace(" ","").upper()
     driver_details = {
         "first_name": first_name,
         "last_name": last_name,
