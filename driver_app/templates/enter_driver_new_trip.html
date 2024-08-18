@@ -77,8 +77,8 @@
         <h2>Enter Trip Details for {{ plate_number }}</h2>
         <input type="date" name="date" placeholder="Date Loaded">
         <input type="text" name="atc_order_number" placeholder="ATC Order Number">
-        <input type="number" name="driver_id" placeholder="Driver ID" required value="{{ driver_id }}">
-        <input type="text" name="driver_name" placeholder="Driver Name" required value="{{ first_name }}">
+        <input type="number" name="driver_id" placeholder="Driver ID" value="{{ driver_id }}" readonly>
+        <input type="text" name="driver_name" placeholder="Driver Name" value="{{ first_name }}" readonly>
         <input type="number" name="dispatch" placeholder="Driver Dispatch" required>
         <input type="number" name="bonus" placeholder="Driver Bonus" required>
         <input type="number" name="diesel_litres" placeholder="Diesel Litres" step="0.01">

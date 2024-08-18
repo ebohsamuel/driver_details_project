@@ -77,8 +77,8 @@
         <h2>Enter Expenses for {{ plate_number }}</h2>
         <input type="date" name="date" placeholder="Date">
         <input type="text" name="description" placeholder="Description">
-        <input type="number" name="driver_id" placeholder="Driver ID" required value="{{ driver_id }}">
-        <input type="text" name="driver_name" placeholder="Driver Name" required value="{{ first_name }}">
+        <input type="number" name="driver_id" placeholder="Driver ID" value="{{ driver_id }}" readonly>
+        <input type="text" name="driver_name" placeholder="Driver Name" value="{{ first_name }}" readonly>
         <input type="number" name="amount" placeholder="Amount">
         <div class="button-container">
             <input type="submit" value="Submit">
