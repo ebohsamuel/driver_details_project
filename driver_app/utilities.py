@@ -5,10 +5,11 @@ import jwt
 from fastapi import Depends, HTTPException, status, Request
 from jwt.exceptions import InvalidTokenError
 from driver_app import schemas, models, crud, database
+import os
 
 
-SECRET_KEY = "070a3e266a3dbec24aa6c1b296082f57ff67682ab80e02736024402c9d9f81c9"
-ALGORITHM = "HS256"
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
 
 
 models.Base.metadata.create_all(bind=database.engine)
