@@ -4,92 +4,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>General Expenses</title>
+    <title>General Expenses Report</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+            background-color: #ffffff;
             margin: 0;
             padding: 0;
-            color: #333;
-            line-height: 1.6;
+            color: #000000;
+            line-height: 1.5;
         }
 
         .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 30px;
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            border: 1px solid #ddd;
+            max-width: 100%;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #000000;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            font-size: 28px;
-            color: #4a90e2;
+            font-size: 22px;
+            color: #333333;
             text-align: center;
-            border-bottom: 3px solid #007bff;
+            text-transform: uppercase;
+            border-bottom: 2px solid #000000;
             padding-bottom: 10px;
-            margin-bottom: 30px;
-            font-weight: 700;
+            margin-bottom: 20px;
         }
 
         .summary {
-        display: flex;
-        justify-content: flex-start; /* Changed from flex-end to flex-start */
-        background-color: #e9ecef;
-        padding: 15px;
-        border-radius: 8px;
-        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
-        margin-bottom: 20px;
-    }
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #dddddd;
+            background-color: #f9f9f9;
+        }
 
-    .summary div {
-        margin-left: 20px;
-        font-weight: 600;
-        color: #555;
-    }
-
-    .summary strong {
-        color: #007bff;
-    }
-
+        .summary div {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
-            font-size: 16px;
-        }
-
-        table thead {
-            background-color: #007bff;
-            color: #ffffff;
-        }
-
-        table, th, td {
-            border: 1px solid #dee2e6;
+            margin-top: 20px;
+            font-size: 14px;
         }
 
         th, td {
-            padding: 15px;
+            border: 1px solid #dddddd;
+            padding: 10px;
             text-align: left;
         }
 
-        tbody tr:nth-child(even) {
+        th {
+            background-color: #f1f1f1;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
             background-color: #f9f9f9;
         }
 
-        tbody tr:hover {
-            background-color: #f1f1f1;
+        tr:nth-child(odd) {
+            background-color: #ffffff;
         }
 
         .no-expenses {
             text-align: center;
-            color: #888;
-            font-size: 18px;
+            color: #888888;
+            font-size: 16px;
             margin: 20px 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 12px;
+            color: #777777;
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .container {
+                margin: 0;
+                padding: 0;
+                border: none;
+                box-shadow: none;
+            }
+            h1 {
+                font-size: 18px;
+                margin-bottom: 15px;
+            }
+            table, th, td {
+                border: 1px solid #000000;
+                padding: 6px;
+            }
+            tr {
+                page-break-inside: avoid;
+            }
         }
     </style>
 </head>
@@ -98,7 +116,7 @@
     <div class="container">
         <h1>General Expenses Report</h1>
         <div class="summary">
-            <div><strong>Total Expenses Amount:</strong> {{ total_amount }}</div>
+            <div>Total Expenses Amount: {{ total_amount }}</div>
         </div>
         {% if general_expenses %}
         <table>
@@ -126,6 +144,9 @@
         {% else %}
         <div class="no-expenses">No expenses recorded.</div>
         {% endif %}
+        <div class="footer">
+            <p>Report generated on: {{ current_datetime }}</p>
+        </div>
     </div>
 </body>
 
