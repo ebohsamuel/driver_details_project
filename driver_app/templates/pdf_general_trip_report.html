@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -58,9 +57,14 @@
             margin: 15px 0;
         }
 
-        table thead {
+        thead {
             background-color: #007bff;
             color: #ffffff;
+            display: table-header-group;
+        }
+
+        tbody, tfoot {
+            display: table-row-group;
         }
 
         table, th, td {
@@ -70,6 +74,7 @@
         th, td {
             padding: 8px;
             text-align: left;
+            page-break-inside: avoid;
         }
 
         tbody tr:nth-child(even) {
@@ -109,10 +114,18 @@
             th, td {
                 padding: 5px;
             }
+            tr {
+                page-break-inside: avoid;
+            }
+            thead {
+                display: table-header-group;
+            }
+            tfoot {
+                display: table-footer-group;
+            }
         }
     </style>
 </head>
-
 <body>
     <div class="container">
         <h1>General Trip Report</h1>
@@ -158,5 +171,4 @@
         </table>
     </div>
 </body>
-
 </html>
