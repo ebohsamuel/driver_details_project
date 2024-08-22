@@ -216,10 +216,11 @@ async def export_pdf_trip_report(
         total_bonus = sum(trip.bonus for trip in driver_trips)
         total_dispatch = sum(trip.dispatch for trip in driver_trips)
         total_amount = sum(trip.amount for trip in driver_trips)
+        total_diesel_amount = sum(trip.diesel_amount for trip in driver_trips)
 
         html_content = templates.get_template("pdf_trip_report.html").render(
             plate_number=plate_number, total_bonus=total_bonus, total_dispatch=total_dispatch,
-            driver_trips=driver_trips, total_amount=total_amount, request=request
+            total_diesel_amount=total_diesel_amount, driver_trips=driver_trips, total_amount=total_amount, request=request
         )
         pdf = pdfkit.from_string(html_content, False)
         headers = {
@@ -734,9 +735,10 @@ async def export_pdf_general_trip_report(
         total_bonus = sum(trip.bonus for trip in general_trips)
         total_dispatch = sum(trip.dispatch for trip in general_trips)
         total_amount = sum(trip.amount for trip in general_trips)
+        total_diesel_amount = sum(trip.diesel_amount for trip in general_trips)
 
         html_content = templates.get_template("pdf_general_trip_report.html").render(
-            general_trips=general_trips, total_bonus=total_bonus,
+            general_trips=general_trips, total_bonus=total_bonus, total_diesel_amount=total_diesel_amount,
             total_dispatch=total_dispatch, total_amount=total_amount, request=request
         )
         pdf = pdfkit.from_string(html_content, False)
