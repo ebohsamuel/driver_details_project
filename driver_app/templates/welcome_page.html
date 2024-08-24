@@ -26,7 +26,7 @@
             margin: 0;
             padding: 0;
             display: flex;
-            flex-wrap: wrap; /* Allows wrapping of menu items */
+            flex-wrap: wrap;
         }
 
         .navbar li {
@@ -78,6 +78,10 @@
         }
 
         .navbar li:hover > ul {
+            display: block;
+        }
+
+        .navbar li.active > ul {
             display: block;
         }
 
@@ -135,17 +139,17 @@
 <div class="navbar">
     <ul>
         <li>
-            <a>Registration</a>
+            <a class="dropdown-toggle">Registration</a>
             <ul>
                 <li><a href="/driver_registration/">Register Driver</a></li>
                 <li><a href="/user/create_user">Register User</a></li>
             </ul>
         </li>
         <li>
-            <a>Reports</a>
+            <a class="dropdown-toggle">Reports</a>
             <ul>
                 <li>
-                    <a>Fleet Report</a>
+                    <a class="dropdown-toggle">Fleet Report</a>
                     <!-- Modified Dropdown Under "Fleet Report" -->
                     <ul>
                         <li><a href="/trip-report/">Trip Report</a></li>
@@ -153,7 +157,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a>General Report</a>
+                    <a class="dropdown-toggle">General Report</a>
                     <ul>
                         <li><a href="/general-trip-report/">General Trip Report</a></li>
                         <li><a href="/general-expense-report/">General Expenses Report</a></li>
@@ -162,13 +166,12 @@
             </ul>
         </li>
         <li>
-            <a>Records</a>
+            <a class="dropdown-toggle">Records</a>
             <ul>
                 <li><a href="/expense-fleet-record/">Enter Expenses</a></li>
                 <li><a href="/fleet_record/">Enter Trip</a></li>
                 <li>
-                    <a>Update Record</a>
-
+                    <a class="dropdown-toggle">Update Record</a>
                     <ul>
                         <li><a href="/fleet_update/">Update Fleet</a></li>
                         <li><a href="/trip_update/">Update Trip</a></li>
@@ -187,6 +190,36 @@
 <div class="welcome-container">
     <h1>Welcome to Transport</h1>
 </div>
+
+<script>
+    document.querySelectorAll('.dropdown-toggle').forEach(item => {
+        item.addEventListener('click', function (event) {
+            event.preventDefault(); // Prevent the default link behavior
+            let parentLi = this.parentElement;
+
+            // Close all other open dropdowns
+            document.querySelectorAll('.navbar li').forEach(li => {
+                if (li !== parentLi) {
+                    li.classList.remove('active');
+                }
+            });
+
+            // Toggle the current dropdown
+            parentLi.classList.toggle('active');
+        });
+    });
+
+    // Close dropdowns if clicking outside
+    document.addEventListener('click', function (event) {
+        let isClickInside = document.querySelector('.navbar').contains(event.target);
+
+        if (!isClickInside) {
+            document.querySelectorAll('.navbar li').forEach(li => {
+                li.classList.remove('active');
+            });
+        }
+    });
+</script>
 
 </body>
 </html>
