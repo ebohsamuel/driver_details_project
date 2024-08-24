@@ -29,6 +29,7 @@ async def create_driver_details(user: Annotated[schemas.User, Depends(get_curren
         else:
             return templates.TemplateResponse("denied.html", {"request": request})
 
+
 # endpoint for submitting a newly registered driver
 @router.post("/submit_details", response_class=HTMLResponse)
 async def create_driver_details(
@@ -75,13 +76,6 @@ async def create_driver_details(
                 )
         else:
             return templates.TemplateResponse("denied.html", {"request": request})
-
-
-# endpoint for getting trips and expense reports for different drivers
-@router.get("/trip-and-expenses-report/", response_class=HTMLResponse)
-async def trip_and_expenses_report(user: Annotated[schemas.User, Depends(get_current_active_user)], request: Request):
-    if user:
-        return templates.TemplateResponse("trip-and-expenses-report.html", {"request": request})
 
 
 # this endpoint is used when you want to register driver's trips
@@ -269,18 +263,6 @@ async def export_excel_trip_report(
         }
         return Response(content=buffer.getvalue(), media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", headers=headers)
 
-
-# this endpoint is used to update fleet, trip, and expenses
-@router.get("/update_fleet_and_trip_and_expenses/", response_class=HTMLResponse)
-async def update_fleet_and_trip_and_expenses(
-        user: Annotated[schemas.User, Depends(get_current_active_user)],
-        request: Request,
-):
-    if user:
-        if user.user_type == "super" or user.user_type == "beta":
-            return templates.TemplateResponse("update.html", {"request": request})
-        else:
-            return templates.TemplateResponse("denied.html", {"request": request})
 
 # this endpoint is used to update fleet
 @router.get("/fleet_update/", response_class=HTMLResponse)
@@ -704,12 +686,6 @@ async def submit_updated_driver_expense(
             )
         else:
             return templates.TemplateResponse("denied.html", {"request": request})
-
-# endpoint for getting your general trips and expenses reports not particular to a driver
-@router.get("/general-trip-and-expenses-report/", response_class=HTMLResponse)
-async def general_trip_and_expenses_report(user: Annotated[schemas.User, Depends(get_current_active_user)], request: Request):
-    if user:
-        return templates.TemplateResponse("general-trip-and-expenses-report.html", {"request": request})
 
 
 # this endpoint is used when you want to go get the trip reports for drivers
