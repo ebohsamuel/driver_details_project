@@ -26,6 +26,7 @@
             margin: 0;
             padding: 0;
             display: flex;
+            flex-wrap: wrap; /* Allows wrapping of menu items */
         }
 
         .navbar li {
@@ -98,6 +99,34 @@
 
         .logout-button:hover {
             background-color: #c82333;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 15px;
+            }
+
+            .navbar a {
+                padding: 10px 15px;
+            }
+
+            .navbar ul ul {
+                position: relative;
+                top: 0;
+                left: 0;
+            }
+
+            .navbar ul ul ul {
+                left: 0;
+                top: 100%;
+            }
+
+            .welcome-container {
+                padding: 20px;
+            }
         }
     </style>
 </head>
