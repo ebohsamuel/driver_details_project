@@ -663,9 +663,9 @@ async def submit_updated_driver_expense(
         expense_id: int,
         plate_number: str,
         driver_name: str | None = Form(default=None),
-        description: int | None = Form(default=None),
+        description: str | None = Form(default=None),
         date: datetime.date | None = Form(default=None),
-        amount: int | None = Form(default=None),
+        amount: float | None = Form(default=None),
         db: Session = Depends(get_db),
 ):
     expense_details = {
