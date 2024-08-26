@@ -741,6 +741,7 @@ async def export_excel_general_trip_report(
                 "Date Loaded": trip.date,
                 "ATC Order Number": trip.atc_order_number,
                 "Driver Name": trip.driver_name,
+                "Plate Number": trip.driver.plate_number,
                 "Dispatch": trip.dispatch,
                 "Bonus": trip.bonus,
                 "Diesel Litres": trip.diesel_litres,
@@ -815,6 +816,7 @@ async def export_excel_general_expense_report(
                 "date": expense.date,
                 "description": expense.description,
                 "Driver Name": expense.driver_name,
+                "Plate Number": expense.driver.plate_number,
                 "amount": expense.amount
             }
             for expense in general_expenses
