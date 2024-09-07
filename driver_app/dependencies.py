@@ -10,6 +10,7 @@ import datetime
 import pdfkit
 import pandas as pd
 from io import BytesIO
+from dateutil import parser
 
 
 from driver_app import schemas, crud
@@ -735,18 +736,20 @@ async def export_pdf_general_trip_report(
     except Exception as e:
         # Capture and log the error
         error_message = f"Error generating PDF: {str(e)}"
-        print(traceback.format_exc())  # Log full error in the backend for debugging
         raise HTTPException(status_code=500, detail=error_message)
 
 
 # this endpoint is used to download the Excel file for all trips
 @router.get("/general-trip-report/excel/")
 async def export_excel_general_trip_report(
+        request: Request,
         user: Annotated[schemas.User, Depends(get_current_active_user)],
         db: Session = Depends(get_db),
 ):
+    start = parser.parse(request.query_params.getlist("start_date")[0]).date()
+    end = parser.parse(request.query_params.getlist("end_date")[0]).date()
     if user:
-        general_trips = crud.get_trips(db)
+        general_trips = crud.get_trips_between_dates(db, start_date=start, end_date=end)
         data = [
             {
                 "Date Loaded": trip.date,

@@ -97,7 +97,7 @@
             const endDate = document.getElementById('end_date').value;
 
             if (!startDate || !endDate) {
-                console.error("Start date and end date must be selected.");
+                alert("Start date and end date must be selected.");
                 return;
             }
 
@@ -120,6 +120,23 @@
                 console.error("An unexpected error occurred:", error);
             }
         }
+
+        function exportExcel() {
+            const startDate = document.getElementById("start_date").value;
+            const endDate = document.getElementById("end_date").value;
+
+            if (!startDate || !endDate) {
+                alert('Both start date and end date must be selected');
+                return;
+            }
+
+            const queryParams = new URLSearchParams();
+            queryParams.append('start_date', startDate);
+            queryParams.append('end_date', endDate);
+
+            const redirectUrl = `/general-trip-report/excel/?${queryParams.toString()}`;
+            window.location.href = redirectUrl;
+        }
     </script>
 </head>
 <body>
@@ -127,7 +144,7 @@
         <h1>General Trips Report</h1>
         <div>
             <button onclick="window.location.href='/welcome/'">Back</button>
-            <button onclick="window.location.href='/general-trip-report/excel/'">Download Excel</button>
+            <button onclick="exportExcel()">Download Excel</button>
         </div>
         <form onsubmit="event.preventDefault(); downloadPDF();">
             <label for="start_date">Start Date:</label>
