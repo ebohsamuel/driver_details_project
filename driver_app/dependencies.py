@@ -207,13 +207,14 @@ async def export_pdf_trip_report(
 ):
     if user:
         driver_trips = crud.get_driver_trips_between_dates(db, driver_id, start_date, end_date)
-        total_bonus = f"₦ {sum(trip.bonus for trip in driver_trips):,}"
-        total_dispatch = f"₦ {sum(trip.dispatch for trip in driver_trips):,}"
-        total_amount = f"₦ {sum(trip.amount for trip in driver_trips):,}"
-        total_diesel_amount = f"₦ {sum(trip.diesel_amount for trip in driver_trips):,}"
+        total_bonus = f"{sum(trip.bonus for trip in driver_trips):,}"
+        total_dispatch = f"{sum(trip.dispatch for trip in driver_trips):,}"
+        total_amount = f"{sum(trip.amount for trip in driver_trips):,}"
+        total_diesel_amount = f"{sum(trip.diesel_amount for trip in driver_trips):,}"
+        current_datetime = datetime.datetime.now()
 
         html_content = templates.get_template("pdf_trip_report.html").render(
-            plate_number=plate_number, total_bonus=total_bonus, total_dispatch=total_dispatch,
+            plate_number=plate_number, current_datetime=current_datetime, total_bonus=total_bonus, total_dispatch=total_dispatch,
             total_diesel_amount=total_diesel_amount, driver_trips=driver_trips, total_amount=total_amount, request=request
         )
         pdf = pdfkit.from_string(html_content, False)
@@ -545,10 +546,11 @@ async def export_pdf_expense_report(
 ):
     if user:
         driver_expenses = crud.get_driver_expenses_between_dates(db, driver_id, start_date, end_date)
-        total_amount = f"₦ {sum(expense.amount for expense in driver_expenses):,}"
+        total_amount = f"{sum(expense.amount for expense in driver_expenses):,}"
+        current_datetime = datetime.datetime.now()
         html_content = templates.get_template("pdf_expense_report.html").render(
             plate_number=plate_number, total_amount=total_amount,
-            driver_expenses=driver_expenses, request=request
+            current_datetime=current_datetime, driver_expenses=driver_expenses, request=request
         )
         pdf = pdfkit.from_string(html_content, False)
         headers = {
@@ -709,14 +711,15 @@ async def export_pdf_general_trip_report(
 ):
     if user:
         general_trips = crud.get_trips_between_dates(db, start_date, end_date)
-        total_bonus = f"₦ {sum(trip.bonus for trip in general_trips):,}"
-        total_dispatch = f"₦ {sum(trip.dispatch for trip in general_trips):,}"
-        total_amount = f"₦ {sum(trip.amount for trip in general_trips):,}"
-        total_diesel_amount = f"₦ {sum(trip.diesel_amount for trip in general_trips):,}"
+        total_bonus = f"{sum(trip.bonus for trip in general_trips):,}"
+        total_dispatch = f"{sum(trip.dispatch for trip in general_trips):,}"
+        total_amount = f"{sum(trip.amount for trip in general_trips):,}"
+        total_diesel_amount = f"{sum(trip.diesel_amount for trip in general_trips):,}"
+        current_datetime = datetime.datetime.now()
         html_content = templates.get_template("pdf_general_trip_report.html").render(
             general_trips=general_trips, total_bonus=total_bonus,
             total_dispatch=total_dispatch, total_diesel_amount=total_diesel_amount,
-            total_amount=total_amount, request=request
+            current_datetime=current_datetime, total_amount=total_amount, request=request
         )
         pdf = pdfkit.from_string(html_content, False)
         headers = {
@@ -787,10 +790,11 @@ async def export_pdf_general_expenses_report(
 ):
     if user:
         general_expenses = crud.get_expenses_between_dates(db, start_date, end_date)
-        total_amount = f"₦ {sum(expense.amount for expense in general_expenses):,}"
+        total_amount = f"{sum(expense.amount for expense in general_expenses):,}"
+        current_datetime = datetime.datetime.now()
         html_content = templates.get_template("pdf_general_expenses_report.html").render(
             general_expenses=general_expenses,
-            total_amount=total_amount, request=request
+            current_datetime=current_datetime, total_amount=total_amount, request=request
         )
         pdf = pdfkit.from_string(html_content, False)
         headers = {
