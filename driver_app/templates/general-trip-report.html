@@ -91,6 +91,36 @@
             text-decoration: underline;
         }
     </style>
+    <script>
+        async function downloadPDF() {
+            const startDate = document.getElementById('start_date').value;
+            const endDate = document.getElementById('end_date').value;
+
+            if (!startDate || !endDate) {
+                console.error("Start date and end date must be selected.");
+                return;
+            }
+
+            try {
+                const response = await fetch(`/general-trip-report/pdf/?start_date=${startDate}&end_date=${endDate}`);
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error("Error generating PDF:", errorData.detail);
+                } else {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.setAttribute('download', 'trips.pdf');
+                    document.body.appendChild(link);
+                    link.click();
+                    link.parentNode.removeChild(link);
+                }
+            } catch (error) {
+                console.error("An unexpected error occurred:", error);
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -99,7 +129,7 @@
             <button onclick="window.location.href='/welcome/'">Back</button>
             <button onclick="window.location.href='/general-trip-report/excel/'">Download Excel</button>
         </div>
-        <form action="/general-trip-report/pdf/" method="get">
+        <form onsubmit="event.preventDefault(); downloadPDF();">
             <label for="start_date">Start Date:</label>
             <input type="date" id="start_date" name="start_date">
             <label for="end_date">End Date:</label>
