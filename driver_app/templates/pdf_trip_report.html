@@ -155,9 +155,14 @@
             </tbody>
         </table>
         <div class="footer">
-            <p>Report generated on: {{ current_datetime }}</p>
+             <p>Report generated on: <span id="currentDatetime"></span></p>
         </div>
     </div>
+    <script>
+        // JavaScript to get the current date and time
+        const currentDateTime = new Date();
+        document.getElementById('currentDatetime').textContent = currentDateTime.toLocaleString();
+    </script>
 </body>
 
 </html>
