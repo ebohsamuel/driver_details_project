@@ -1,3 +1,4 @@
+import traceback
 from typing import Annotated
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Form, Depends, status, Request, HTTPException
@@ -707,22 +708,35 @@ async def export_pdf_general_trip_report(
         end_date: datetime.date,
         db: Session = Depends(get_db),
 ):
-    if user:
-        general_trips = crud.get_trips_between_dates(db, start_date, end_date)
-        total_bonus = f"₦ {sum(trip.bonus for trip in general_trips):,}"
-        total_dispatch = f"₦ {sum(trip.dispatch for trip in general_trips):,}"
-        total_amount = f"₦ {sum(trip.amount for trip in general_trips):,}"
-        total_diesel_amount = f"₦ {sum(trip.diesel_amount for trip in general_trips):,}"
-        html_content = templates.get_template("pdf_general_trip_report.html").render(
-            general_trips=general_trips, total_bonus=total_bonus,
-            total_dispatch=total_dispatch, total_diesel_amount=total_diesel_amount,
-            total_amount=total_amount, request=request
-        )
-        pdf = pdfkit.from_string(html_content, False)
-        headers = {
-            'Content-Disposition': 'attachment; filename="trips.pdf"'
-        }
-        return Response(content=pdf, media_type="application/pdf", headers=headers)
+    try:
+        if user:
+            general_trips = crud.get_trips_between_dates(db, start_date, end_date)
+            total_bonus = f"₦ {sum(trip.bonus for trip in general_trips):,}"
+            total_dispatch = f"₦ {sum(trip.dispatch for trip in general_trips):,}"
+            total_amount = f"₦ {sum(trip.amount for trip in general_trips):,}"
+            total_diesel_amount = f"₦ {sum(trip.diesel_amount for trip in general_trips):,}"
+
+            # Render HTML template
+            html_content = templates.get_template("pdf_general_trip_report.html").render(
+                general_trips=general_trips, total_bonus=total_bonus,
+                total_dispatch=total_dispatch, total_diesel_amount=total_diesel_amount,
+                total_amount=total_amount, request=request
+            )
+
+            # Generate PDF
+            pdf = pdfkit.from_string(html_content, False)
+
+            # Return the PDF response
+            headers = {
+                'Content-Disposition': 'attachment; filename="trips.pdf"'
+            }
+            return Response(content=pdf, media_type="application/pdf", headers=headers)
+
+    except Exception as e:
+        # Capture and log the error
+        error_message = f"Error generating PDF: {str(e)}"
+        print(traceback.format_exc())  # Log full error in the backend for debugging
+        raise HTTPException(status_code=500, detail=error_message)
 
 
 # this endpoint is used to download the Excel file for all trips
