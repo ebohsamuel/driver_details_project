@@ -228,13 +228,17 @@ async def export_pdf_trip_report(
 # this endpoint is used to download the Excel file for each driver's trip
 @router.get("/trip-report/{plate_number}/{driver_id}/excel/")
 async def export_excel_trip_report(
+        request: Request,
         user: Annotated[schemas.User, Depends(get_current_active_user)],
         plate_number: str,
         driver_id: int,
         db: Session = Depends(get_db),
 ):
+    start_date = parser.parse(request.query_params.getlist("start")[0]).date()
+    end_date = parser.parse(request.query_params.getlist("end")[0]).date()
+
     if user:
-        driver_trips = crud.get_driver_trips(db, driver_id=driver_id)
+        driver_trips = crud.get_driver_trips_between_dates(db, driver_id, start_date, end_date)
         data = [
             {
                 "Date Loaded": trip.date,
@@ -562,13 +566,16 @@ async def export_pdf_expense_report(
 # this endpoint is used to download the Excel file for each driver's expense
 @router.get("/expense-report/{plate_number}/{driver_id}/excel/")
 async def export_excel_expense_report(
+        request: Request,
         user: Annotated[schemas.User, Depends(get_current_active_user)],
         plate_number: str,
         driver_id: int,
         db: Session = Depends(get_db),
 ):
+    start_date = parser.parse(request.query_params.getlist("start")[0]).date()
+    end_date = parser.parse(request.query_params.getlist("end")[0]).date()
     if user:
-        driver_expenses = crud.get_driver_expense(db, driver_id=driver_id)
+        driver_expenses = crud.get_driver_expenses_between_dates(db, driver_id, start_date, end_date)
         data = [
             {
                 "date": expense.date,
@@ -819,11 +826,14 @@ async def export_pdf_general_expenses_report(
 # this endpoint is used to download the Excel file for all expenses
 @router.get("/general-expenses-report/excel/")
 async def export_excel_general_expense_report(
+        request: Request,
         user: Annotated[schemas.User, Depends(get_current_active_user)],
         db: Session = Depends(get_db),
 ):
+    start_date = parser.parse(request.query_params.getlist("start")[0]).date()
+    end_date = parser.parse(request.query_params.getlist("end")[0]).date()
     if user:
-        general_expenses = crud.get_expenses(db)
+        general_expenses = crud.get_expenses_between_dates(db, start_date, end_date)
         data = [
             {
                 "date": expense.date,

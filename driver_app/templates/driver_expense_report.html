@@ -95,13 +95,15 @@
         <h1>{{plate_number}} Expense Report</h1>
         <div>
             <button onclick="window.location.href='/expense-report/'">Back</button>
-            <button onclick="window.location.href='/expense-report/{{plate_number}}/{{driver_id}}/excel/'">Download Excel</button>
+            <button onclick="exportExcel()">Download Excel</button>
         </div>
         <form action="/expense-report/{{plate_number}}/{{driver_id}}/pdf/" method="get">
             <label for="start_date">Start Date:</label>
-            <input type="date" id="start_date" name="start_date">
+            <input type="date" id="start_date" name="start_date" required>
             <label for="end_date">End Date:</label>
-            <input type="date" id="end_date" name="end_date">
+            <input type="date" id="end_date" name="end_date" required>
+            <input type="hidden" id="plate_number" value="{{plate_number}}">
+            <input type="hidden" id="driver_id" value="{{driver_id}}">
             <button type="submit">Download PDF</button>
         </form>
         <table>
@@ -125,5 +127,28 @@
             </tbody>
         </table>
     </div>
+    <script>
+        function exportExcel() {
+            const startDate = document.getElementById("start_date").value;
+            const endDate = document.getElementById("end_date").value;
+            const plateNumber = document.getElementById("plate_number").value;
+            const driverId = document.getElementById("driver_id").value;
+            if (!startDate || !endDate) {
+                alert('Both start date and end date must be selected');
+
+                document.getElementById("start_date").value = "";
+                document.getElementById("end_date").value = "";
+
+                return;
+            }
+            const queryParams = new URLSearchParams();
+
+            queryParams.append('start', startDate);
+            queryParams.append('end', endDate);
+
+            const redirectUrl = `/expense-report/${plateNumber}/${driverId}/excel/?${queryParams.toString()}`;
+            window.location.href = redirectUrl;
+        }
+    </script>
 </body>
 </html>
