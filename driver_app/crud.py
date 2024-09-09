@@ -81,15 +81,15 @@ def update_trip(db: Session, trip_id: int, trip_details: dict):
         db_trip.atc_order_number = trip_details["atc_order_number"]
     if trip_details["customer_name"]:
         db_trip.customer_name = trip_details["customer_name"]
-    if trip_details["amount"]:
+    if trip_details["amount"] is not None:
         db_trip.amount = trip_details["amount"]
-    if trip_details["dispatch"]:
+    if trip_details["dispatch"] is not None:
         db_trip.dispatch = trip_details["dispatch"]
-    if trip_details["bonus"]:
+    if trip_details["bonus"] is not None:
         db_trip.bonus = trip_details["bonus"]
-    if trip_details["diesel_litres"]:
+    if trip_details["diesel_litres"] is not None:
         db_trip.diesel_litres = trip_details["diesel_litres"]
-    if trip_details["diesel_amount"]:
+    if trip_details["diesel_amount"] is not None:
         db_trip.diesel_amount = trip_details["diesel_amount"]
     if trip_details["diesel_date"]:
         db_trip.diesel_date = trip_details["diesel_date"]
@@ -169,7 +169,7 @@ def update_expense(db: Session, expense_id: int, expense_details: dict):
         db_expense.driver_name = expense_details["driver_name"]
     if expense_details["description"]:
         db_expense.description = expense_details["description"]
-    if expense_details["amount"]:
+    if expense_details["amount"] is not None:
         db_expense.amount = expense_details["amount"]
     db.commit()
     db.refresh(db_expense)
